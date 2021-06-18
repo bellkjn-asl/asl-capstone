@@ -17,7 +17,8 @@ import config
 app = Flask(__name__)
 
 
-def get_prediction(features, model_name,
+def get_prediction(features,
+                   model_name,
                    version_name,
                    predict_key):
     project = config.project
@@ -64,7 +65,6 @@ def usedcar():
 @app.route("/usedcar/predict", methods=["GET", "POST"])
 def predict():
     data = request.get_json()
-    print(request.form)
 
     # maker = data.get('maker', None)
     # model = data.get('model', None)
@@ -73,10 +73,12 @@ def predict():
     # mpg = data.get('mpg', None)
     # engineSize = data.get('enginesize', None)
 
+    usedcar_config = config.USED_CAR
+
     prediction = get_prediction(data,
-                                config.model_name,
-                                config.version_name,
-                                config.predict_key)
+                                usedcar_config.model_name,
+                                usedcar_config.version_name,
+                                usedcar_config.predict_key)
 
     return "{:.1f} Pound(£)".format(prediction)
 
@@ -84,19 +86,13 @@ def predict():
 @app.route("/creditcard/predict", methods=["GET", "POST"])
 def predict():
     data = request.get_json()
-    print(request.form)
 
-    # maker = data.get('maker', None)
-    # model = data.get('model', None)
-    # fuelType = data.get('fueltype', None)
-    # transmission = data.get('transmission', None)
-    # mpg = data.get('mpg', None)
-    # engineSize = data.get('enginesize', None)
+    card_config = config.CREDIT_CARD
 
     prediction = get_prediction(data,
-                                config.model_name,
-                                config.version_name,
-                                config.predict_key)
+                                card_config.model_name,
+                                card_config.version_name,
+                                card_config.predict_key)
 
     return "{:.1f} Credit".format(prediction)
 
