@@ -1,6 +1,8 @@
 import pandas as pd
 
-df = pd.read_csv('car_spec.csv')
+PATH = os.path.dirname(os.path.abspath(__file__))
+
+df = pd.read_csv(os.path.join(PATH, 'car_spec.csv'))
 
 
 def get_makers(colname):
