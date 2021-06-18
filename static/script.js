@@ -57,7 +57,7 @@ function changeModel() {
   var modelText = modelSel.options[modelSel.selectedIndex].text;
 
   var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/?maker=" + makerText + "&model=" + modelText);
+  xhr.open("GET", "/usedcar/?maker=" + makerText + "&model=" + modelText);
   xhr.onload = function () {
     const response = JSON.parse(xhr.responseText);
     setSelectData("fuelType-list", response.fuelType, 'Choose fuel type');
@@ -72,7 +72,7 @@ function submitClick() {
   console.log('submitClick');
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/predict");
+  xhr.open("POST", "/usedcar/predict");
   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
   xhr.onload = function () {
     const response = xhr.responseText;

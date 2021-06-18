@@ -17,11 +17,10 @@ import config
 app = Flask(__name__)
 
 
-def get_prediction(features):
+def get_prediction(features, model_name,
+                   version_name,
+                   predict_key):
     project = config.project
-    model_name = config.model_name
-    version_name = config.version_name
-    predict_key = config.predict_key
 
     input_data = {"instances": [features]}
 
@@ -34,8 +33,14 @@ def get_prediction(features):
     return prediction["predictions"][0][predict_key][0]
 
 
+@app.route("/creditcard")
+def creditcard():
+    return render_template("creditcard.html")
+
+
 @app.route("/")
-def index():
+@app.route("/usedcar")
+def usedcar():
     maker = request.args.get('maker', None)
     model = request.args.get('model', None)
     if not model:
@@ -52,11 +57,11 @@ def index():
         return jsonify(result)
 
     maker_list = handle_csv.get_makers('maker')
-    return render_template("index.html",
+    return render_template("usedcar.html",
                            result='first', maker_list=maker_list)
 
 
-@app.route("/predict", methods=["GET", "POST"])
+@app.route("/usedcar/predict", methods=["GET", "POST"])
 def predict():
     data = request.get_json()
     print(request.form)
@@ -68,9 +73,32 @@ def predict():
     # mpg = data.get('mpg', None)
     # engineSize = data.get('enginesize', None)
 
-    prediction = get_prediction(data)
+    prediction = get_prediction(data,
+                                config.model_name,
+                                config.version_name,
+                                config.predict_key)
 
     return "{:.1f} Pound(£)".format(prediction)
+
+
+@app.route("/creditcard/predict", methods=["GET", "POST"])
+def predict():
+    data = request.get_json()
+    print(request.form)
+
+    # maker = data.get('maker', None)
+    # model = data.get('model', None)
+    # fuelType = data.get('fueltype', None)
+    # transmission = data.get('transmission', None)
+    # mpg = data.get('mpg', None)
+    # engineSize = data.get('enginesize', None)
+
+    prediction = get_prediction(data,
+                                config.model_name,
+                                config.version_name,
+                                config.predict_key)
+
+    return "{:.1f} Credit".format(prediction)
 
 
 if __name__ == '__main__':
