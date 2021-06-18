@@ -1,0 +1,241 @@
+<head>
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+  />
+  <link
+    rel="stylesheet"
+    href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css"
+  />
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <script
+    type="text/javascript"
+    src="{{ url_for('static', filename = 'script.js') }}"
+  ></script>
+</head>
+
+<body style="background-color: #f1f3f4">
+  <header class="mdl-layout__header" style="margin-bottom: 25px">
+    <div class="mdl-layout__header-row">
+      <img
+        style="height: 40px; width: 40px"
+        src="{{url_for('static', filename='baby.png')}}"
+      />
+      <span class="mdl-layout-title">Baby Weight Predictor</span>
+    </div>
+  </header>
+
+  <div class="mdl-card mdl-shadow--2dp" style="padding: 10px; margin: auto">
+    <form id="myForm" style="padding: 10px">
+      <!-- Mother's Age -->
+      <label for="ageSlider">Mother's Age:</label>
+      <table>
+        <tr>
+          <td>
+            <input
+              type="range"
+              min="15"
+              max="99"
+              id="ageSlider"
+              name="motherAge"
+              oninput="updateAgeInput(this.value);"
+              class="mdl-slider mdl-js-slider"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="ageText"
+              min="15"
+              max="99"
+              oninput="updateAgeInput(this.value);"
+              class="mdl-textfield__input"
+              required
+            />
+          </td>
+        </tr>
+      </table>
+      <br />
+
+      <!-- Gestation Weeks -->
+      <label for="weeksSlider">Gestation Weeks:</label>
+      <table>
+        <tr>
+          <td>
+            <input
+              type="range"
+              min="30"
+              max="49"
+              id="weeksSlider"
+              name="gestationWeeks"
+              oninput="updateWeeksInput(this.value);"
+              class="mdl-slider mdl-js-slider"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="weeksText"
+              min="30"
+              max="49"
+              oninput="updateWeeksInput(this.value);"
+              class="mdl-textfield__input"
+              required
+            />
+          </td>
+        </tr>
+      </table>
+      <br />
+
+      <!-- Plurality -->
+      <label for="plurality">Plurality:</label><br />
+      <select id="plurality" name="plurality">
+        <option value="1">Single</option>
+        <option value="2">Twins</option>
+        <option value="3">Triplets</option></select
+      ><br /><br />
+
+      <!-- Gender -->
+      <label>Gender:</label><br />
+      <label for="male" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+        <input
+          type="radio"
+          name="babyGender"
+          id="male"
+          value="male"
+          class="mdl-radio__button"
+          required
+        />
+        <span class="mdl-radio__label">Male</span>
+      </label>
+      <label for="female" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+        <input
+          type="radio"
+          name="babyGender"
+          id="female"
+          value="female"
+          class="mdl-radio__button"
+          required
+        />
+        <span class="mdl-radio__label">Female</span>
+      </label>
+      <label for="unknown" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
+        <input
+          type="radio"
+          name="babyGender"
+          id="unknown"
+          value="unknown"
+          class="mdl-radio__button"
+          required
+        />
+        <span class="mdl-radio__label">Unknown</span> </label
+      ><br /><br />
+
+      <!-- Submit -->
+      <button
+        id="submit"
+        style="float: right"
+        class="
+          mdl-button mdl-js-button
+          mdl-button--raised
+          mdl-js-ripple-effect
+          mdl-button--primary
+        "
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+
+  <label for="maker-list">Car Maker:</label>
+  <select id="maker-list" name="Maker" onchange="changeMaker()">
+    <option value="" selected disabled hidden>Choose maker</option>
+    {% for m in maker_list %}
+    <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+  </select>
+  <br />
+
+  <label for="model-list">Model:</label>
+  <select id="model-list" name="Model" onchange="changeModel()">
+    <option value="" selected disabled hidden>Choose model</option>
+    {% for m in model_list %}
+    <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+  </select>
+  <br />
+
+  <label for="carYearSlider">Car year:</label>
+  <table>
+    <tr>
+      <td>
+        <input
+          type="range"
+          min="1990"
+          max="2021"
+          id="carYearSlider"
+          name="Car year"
+          oninput="updateYearInput(this.value);"
+          class="mdl-slider mdl-js-slider"
+        />
+      </td>
+      <td>
+        <input
+          type="number"
+          id="carYearText"
+          min="1990"
+          max="2021"
+          oninput="updateYearInput(this.value);"
+          class="mdl-textfield__input"
+          required
+        />
+      </td>
+    </tr>
+  </table>
+  <br />
+
+  <label for="fuelType-list">FuelType:</label>
+  <select id="fuelType-list" name="FuelType" onchange="changeFuelType()">
+    <option value="" selected disabled hidden>Choose fuel type</option>
+    {% for m in fuelType_list %}
+    <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+  </select>
+  <br />
+
+  <label for="transmission-list">Transmission:</label>
+  <select
+    id="transmission-list"
+    name="Transmission"
+    onchange="changeTransmission()"
+  >
+    <option value="" selected disabled hidden>Choose transmission</option>
+    {% for m in transmission_list %}
+    <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+  </select>
+  <br />
+
+  <label for="mpg-list">Mile/Galon:</label>
+  <select id="mpg-list" name="Mpg" onchange="changeMpg()">
+    <option value="" selected disabled hidden>Choose mpg</option>
+    {% for m in mpg_list %}
+    <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+  </select>
+  <br />
+
+  <label for="engine-list">EngineSize:</label>
+  <select id="engine-list" name="EngineSize" onchange="changeEngineSize()">
+    <option value="" selected disabled hidden>Choose engine size</option>
+    {% for m in engine_list %}
+    <option value="{{ m }}">{{ m }}</option>
+    {% endfor %}
+  </select>
+  <br />
+
+  <div class="mdl-card mdl-shadow--2dp" style="padding: 10px; margin: auto">
+    Result: <span id="result">{{ result }}</span>
+  </div>
+</body>
