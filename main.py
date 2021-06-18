@@ -58,7 +58,8 @@ def index():
 
 @app.route("/predict", methods=["GET", "POST"])
 def predict():
-    data = request.form.to_dict()
+    data = request.get_json()
+    print(request.form)
 
     # maker = data.get('maker', None)
     # model = data.get('model', None)

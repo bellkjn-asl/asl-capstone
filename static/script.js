@@ -1,13 +1,3 @@
-function updateAgeInput(val) {
-  document.getElementById("ageSlider").value = val;
-  document.getElementById("ageText").value = val;
-}
-
-function updateWeeksInput(val) {
-  document.getElementById("weeksSlider").value = val;
-  document.getElementById("weeksText").value = val;
-}
-
 function updateYearInput(val) {
   document.getElementById("carYearSlider").value = val;
   document.getElementById("carYearText").value = val;
@@ -20,30 +10,41 @@ function clearSelectData(select) {
   }
 }
 
-function setSelectData(select_id, data) {
-  var select = document.getElementById(select_id);
+function setSelectData(selectId, data, defaultText) {
+  const select = document.getElementById(selectId);
 
   clearSelectData(select);
 
+  var opt = document.createElement("option");
+  opt.value = 0;
+  opt.innerHTML = defaultText;
+  opt.disabled = true;
+  opt.hidden = true;
+  opt.selected = true;
+  select.appendChild(opt);
+
   for (i = 0; i < data.length; i++) {
     var opt = document.createElement("option");
-    opt.value = i;
+    opt.value = i+1;
     opt.innerHTML = data[i];
     select.appendChild(opt);
   }
 }
 
+function getSelectedText(selectId) {
+  const select = document.getElementById(selectId);
+  return select.options[select.selectedIndex].text;
+}
+
 function changeMaker() {
   var makerSel = document.getElementById("maker-list");
-
-  // select element에서 선택된 option의 text가 저장된다.
   var makerText = makerSel.options[makerSel.selectedIndex].text;
 
   var xhr = new XMLHttpRequest();
   xhr.open("GET", "/?maker=" + makerText);
   xhr.onload = function () {
     const response = JSON.parse(xhr.responseText);
-    setSelectData("model-list", response);
+    setSelectData("model-list", response, 'Choose model');
   };
   xhr.send(null);
 }
@@ -59,29 +60,35 @@ function changeModel() {
   xhr.open("GET", "/?maker=" + makerText + "&model=" + modelText);
   xhr.onload = function () {
     const response = JSON.parse(xhr.responseText);
-    setSelectData("fuelType-list", response.fuelType);
-    setSelectData("transmission-list", response.transmission);
-    setSelectData("mpg-list", response.mpg);
-    setSelectData("engine-list", response.engineSize);
+    setSelectData("fuelType-list", response.fuelType, 'Choose fuel type');
+    setSelectData("transmission-list", response.transmission, 'Choose transmission');
+    setSelectData("mpg-list", response.mpg, 'Choose mpg');
+    setSelectData("engine-list", response.engineSize, 'Choose engine size');
   };
   xhr.send(null);
 }
 
-const submitButton = document.getElementById("submit");
-submitButton.addEventListener("click", function (event) {
-  const myForm = document.getElementById("myForm");
-  var formData = new FormData(myForm);
-  if (true) {
-    //myForm.checkValidity()) {
-    event.preventDefault();
+function submitClick() {
+  console.log('submitClick');
 
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/predict");
-    xhr.onload = function () {
-      console.log("recv result");
-      const response = xhr.responseText;
-      document.getElementById("result").innerHTML = response;
-    };
-    xhr.send(formData);
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "/predict");
+  xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
+  xhr.onload = function () {
+    const response = xhr.responseText;
+    document.getElementById("resultText").innerHTML = response;
+  };
+
+  var data = {
+    carYear: document.getElementById("carYearText").value,
+    maker: getSelectedText("maker-list"),
+    model: getSelectedText("model-list"),
+    fuelType: getSelectedText("fuelType-list"),
+    transmission: getSelectedText("transmission-list"),
+    mpg: getSelectedText("mpg-list"),
+    engine: getSelectedText("engine-list")
   }
-});
+
+  xhr.send(JSON.stringify(data));
+
+}

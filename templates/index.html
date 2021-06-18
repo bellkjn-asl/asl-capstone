@@ -13,6 +13,87 @@
     type="text/javascript"
     src="{{ url_for('static', filename = 'script.js') }}"
   ></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* Style the header */
+    header {
+      background-color: #666;
+      padding: 30px;
+      text-align: center;
+      font-size: 35px;
+      color: white;
+    }
+
+    /* Create two columns/boxes that floats next to each other */
+    nav {
+      float: left;
+      width: 30%;
+      padding: 20px;
+      display: -webkit-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+      flex-direction: column;
+      font-size: 16px;
+      font-weight: 400;
+      min-height: 200px;
+      overflow: hidden;
+      z-index: 1;
+      position: relative;
+      background: #fff;
+      border-radius: 2px;
+      box-sizing: border-box;
+    }
+
+    /* Style the list inside the menu */
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    article {
+      float: left;
+      padding: 20px;
+      width: 70%;
+      background-color: #f1f1f1;
+      font-size: 16px;
+      font-weight: 400;
+      box-sizing: border-box;
+    }
+
+    /* Clear floats after the columns */
+    section::after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    /* Style the footer */
+    footer {
+      background-color: #777;
+      padding: 10px;
+      text-align: center;
+      color: white;
+    }
+
+    /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+    @media (max-width: 600px) {
+      nav,
+      article {
+        width: 100%;
+        height: auto;
+      }
+    }
+  </style>
 </head>
 
 <body style="background-color: #f1f3f4">
@@ -26,30 +107,47 @@
     </div>
   </header>
 
-  <div class="mdl-card mdl-shadow--2dp" style="padding: 10px; margin: auto">
-    <form id="myForm" style="padding: 10px">
-      <!-- Mother's Age -->
-      <label for="ageSlider">Mother's Age:</label>
+  <section>
+    <nav>
+      <label for="maker-list">Car Maker:</label>
+      <select id="maker-list" name="Maker" onchange="changeMaker()">
+        <option value="" selected disabled hidden>Choose maker</option>
+        {% for m in maker_list %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+      <br />
+
+      <label for="model-list">Model:</label>
+      <select id="model-list" name="Model" onchange="changeModel()">
+        <option value="" selected disabled hidden>Choose model</option>
+        {% for m in model_list %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+      <br />
+
+      <label for="carYearSlider">Car year:</label>
       <table>
         <tr>
           <td>
             <input
               type="range"
-              min="15"
-              max="99"
-              id="ageSlider"
-              name="motherAge"
-              oninput="updateAgeInput(this.value);"
+              min="1990"
+              max="2021"
+              id="carYearSlider"
+              name="Car year"
+              oninput="updateYearInput(this.value);"
               class="mdl-slider mdl-js-slider"
             />
           </td>
           <td>
             <input
               type="number"
-              id="ageText"
-              min="15"
-              max="99"
-              oninput="updateAgeInput(this.value);"
+              id="carYearText"
+              min="1990"
+              max="2021"
+              oninput="updateYearInput(this.value);"
               class="mdl-textfield__input"
               required
             />
@@ -58,79 +156,42 @@
       </table>
       <br />
 
-      <!-- Gestation Weeks -->
-      <label for="weeksSlider">Gestation Weeks:</label>
-      <table>
-        <tr>
-          <td>
-            <input
-              type="range"
-              min="30"
-              max="49"
-              id="weeksSlider"
-              name="gestationWeeks"
-              oninput="updateWeeksInput(this.value);"
-              class="mdl-slider mdl-js-slider"
-            />
-          </td>
-          <td>
-            <input
-              type="number"
-              id="weeksText"
-              min="30"
-              max="49"
-              oninput="updateWeeksInput(this.value);"
-              class="mdl-textfield__input"
-              required
-            />
-          </td>
-        </tr>
-      </table>
+      <label for="fuelType-list">FuelType:</label>
+      <select id="fuelType-list" name="FuelType">
+        <option value="" selected disabled hidden>Choose fuel type</option>
+        {% for m in fuelType_list %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
       <br />
 
-      <!-- Plurality -->
-      <label for="plurality">Plurality:</label><br />
-      <select id="plurality" name="plurality">
-        <option value="1">Single</option>
-        <option value="2">Twins</option>
-        <option value="3">Triplets</option></select
-      ><br /><br />
+      <label for="transmission-list">Transmission:</label>
+      <select id="transmission-list" name="Transmission">
+        <option value="" selected disabled hidden>Choose transmission</option>
+        {% for m in transmission_list %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+      <br />
 
-      <!-- Gender -->
-      <label>Gender:</label><br />
-      <label for="male" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-        <input
-          type="radio"
-          name="babyGender"
-          id="male"
-          value="male"
-          class="mdl-radio__button"
-          required
-        />
-        <span class="mdl-radio__label">Male</span>
-      </label>
-      <label for="female" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-        <input
-          type="radio"
-          name="babyGender"
-          id="female"
-          value="female"
-          class="mdl-radio__button"
-          required
-        />
-        <span class="mdl-radio__label">Female</span>
-      </label>
-      <label for="unknown" class="mdl-radio mdl-js-radio mdl-js-ripple-effect">
-        <input
-          type="radio"
-          name="babyGender"
-          id="unknown"
-          value="unknown"
-          class="mdl-radio__button"
-          required
-        />
-        <span class="mdl-radio__label">Unknown</span> </label
-      ><br /><br />
+      <label for="mpg-list">Mile/Galon:</label>
+      <select id="mpg-list" name="Mpg">
+        <option value="" selected disabled hidden>Choose mpg</option>
+        {% for m in mpg_list %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+      <br />
+
+      <label for="engine-list">EngineSize:</label>
+      <select id="engine-list" name="EngineSize">
+        <option value="" selected disabled hidden>Choose engine size</option>
+        {% for m in engine_list %}
+        <option value="{{ m }}">{{ m }}</option>
+        {% endfor %}
+      </select>
+      <br />
+      <br />
 
       <!-- Submit -->
       <button
@@ -142,100 +203,14 @@
           mdl-js-ripple-effect
           mdl-button--primary
         "
+        onclick="submitClick();"
       >
         Submit
       </button>
-    </form>
-  </div>
+    </nav>
 
-  <label for="maker-list">Car Maker:</label>
-  <select id="maker-list" name="Maker" onchange="changeMaker()">
-    <option value="" selected disabled hidden>Choose maker</option>
-    {% for m in maker_list %}
-    <option value="{{ m }}">{{ m }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-  <label for="model-list">Model:</label>
-  <select id="model-list" name="Model" onchange="changeModel()">
-    <option value="" selected disabled hidden>Choose model</option>
-    {% for m in model_list %}
-    <option value="{{ m }}">{{ m }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-  <label for="carYearSlider">Car year:</label>
-  <table>
-    <tr>
-      <td>
-        <input
-          type="range"
-          min="1990"
-          max="2021"
-          id="carYearSlider"
-          name="Car year"
-          oninput="updateYearInput(this.value);"
-          class="mdl-slider mdl-js-slider"
-        />
-      </td>
-      <td>
-        <input
-          type="number"
-          id="carYearText"
-          min="1990"
-          max="2021"
-          oninput="updateYearInput(this.value);"
-          class="mdl-textfield__input"
-          required
-        />
-      </td>
-    </tr>
-  </table>
-  <br />
-
-  <label for="fuelType-list">FuelType:</label>
-  <select id="fuelType-list" name="FuelType" onchange="changeFuelType()">
-    <option value="" selected disabled hidden>Choose fuel type</option>
-    {% for m in fuelType_list %}
-    <option value="{{ m }}">{{ m }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-  <label for="transmission-list">Transmission:</label>
-  <select
-    id="transmission-list"
-    name="Transmission"
-    onchange="changeTransmission()"
-  >
-    <option value="" selected disabled hidden>Choose transmission</option>
-    {% for m in transmission_list %}
-    <option value="{{ m }}">{{ m }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-  <label for="mpg-list">Mile/Galon:</label>
-  <select id="mpg-list" name="Mpg" onchange="changeMpg()">
-    <option value="" selected disabled hidden>Choose mpg</option>
-    {% for m in mpg_list %}
-    <option value="{{ m }}">{{ m }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-  <label for="engine-list">EngineSize:</label>
-  <select id="engine-list" name="EngineSize" onchange="changeEngineSize()">
-    <option value="" selected disabled hidden>Choose engine size</option>
-    {% for m in engine_list %}
-    <option value="{{ m }}">{{ m }}</option>
-    {% endfor %}
-  </select>
-  <br />
-
-  <div class="mdl-card mdl-shadow--2dp" style="padding: 10px; margin: auto">
-    Result: <span id="result">{{ result }}</span>
-  </div>
+    <article>
+      Prediction result: <span id="resultText">{{ result }}</span>
+    </article>
+  </section>
 </body>
