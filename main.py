@@ -68,7 +68,7 @@ def usedcar():
     transmission = handle_csv.get_transmission()
     mileage = dict(min=0.0, max=50.0)
     tax = dict(min=0.0, max=1000.0)
-    
+
     mpg = handle_csv.get_mpg()
     mpg = dict(min=min(mpg), max=max(mpg))
 
@@ -82,7 +82,7 @@ def usedcar():
                            transmission=transmission,
                            mpg=mpg,
                            engineSize=engineSize,
-                           mileage=mileage, 
+                           mileage=mileage,
                            tax=tax)
 
 
@@ -106,7 +106,7 @@ def predict_usedcar():
     # transmission = data.get('transmission', None)
     # mpg = data.get('mpg', None)
     # engineSize = data.get('enginesize', None)
-    data['year'] = data.pop('carYear')
+    data['year'] = float(data.pop('carYear'))
     data['manufacturer'] = data.pop('maker')
     data['engineSize'] = data.pop('engine')
     data["mileage"] = float(data["mileage"])
