@@ -2,7 +2,17 @@ function updateYearInput(val) {
   document.getElementById("carYearSlider").value = val;
   document.getElementById("carYearText").value = val;
 }
- 
+
+function updateMpgInput(val) {
+  document.getElementById("mpgSlider").value = val;
+  document.getElementById("mpgText").value = val;
+}
+
+function updateEngineSizeInput(val) {
+  document.getElementById("enginesizeSlider").value = val;
+  document.getElementById("enginesizeText").value = val;
+}
+
 function clearSelectData(select) {
   var length = select.options.length;
   for (i = length - 1; i >= 0; i--) {
@@ -50,22 +60,22 @@ function changeMaker() {
 }
 
 function changeModel() {
-  var makerSel = document.getElementById("maker-list");
-  var makerText = makerSel.options[makerSel.selectedIndex].text;
+  // var makerSel = document.getElementById("maker-list");
+  // var makerText = makerSel.options[makerSel.selectedIndex].text;
 
-  var modelSel = document.getElementById("model-list");
-  var modelText = modelSel.options[modelSel.selectedIndex].text;
+  // var modelSel = document.getElementById("model-list");
+  // var modelText = modelSel.options[modelSel.selectedIndex].text;
 
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "/usedcar/?maker=" + makerText + "&model=" + modelText);
-  xhr.onload = function () {
-    const response = JSON.parse(xhr.responseText);
-    setSelectData("fuelType-list", response.fuelType, 'Choose fuel type');
-    setSelectData("transmission-list", response.transmission, 'Choose transmission');
-    setSelectData("mpg-list", response.mpg, 'Choose mpg');
-    setSelectData("engine-list", response.engineSize, 'Choose engine size');
-  };
-  xhr.send(null);
+  // var xhr = new XMLHttpRequest();
+  // xhr.open("GET", "/?maker=" + makerText + "&model=" + modelText);
+  // xhr.onload = function () {
+  //   const response = JSON.parse(xhr.responseText);
+  //   setSelectData("fuelType-list", response.fuelType, 'Choose fuel type');
+  //   setSelectData("transmission-list", response.transmission, 'Choose transmission');
+  //   setSelectData("mpg-list", response.mpg, 'Choose mpg');
+  //   setSelectData("engine-list", response.engineSize, 'Choose engine size');
+  // };
+  // xhr.send(null);
 }
 
 function submitClick() {
@@ -85,8 +95,8 @@ function submitClick() {
     model: getSelectedText("model-list"),
     fuelType: getSelectedText("fuelType-list"),
     transmission: getSelectedText("transmission-list"),
-    mpg: getSelectedText("mpg-list"),
-    engine: getSelectedText("engine-list")
+    mpg: document.getElementById("mpgSlider").value,
+    engine: document.getElementById("enginesizeSlider").value
   }
 
   xhr.send(JSON.stringify(data));

@@ -6,8 +6,8 @@ PATH = os.path.dirname(os.path.abspath(__file__))
 df = pd.read_csv(os.path.join(PATH, 'car_spec.csv'))
 
 
-def get_makers(colname):
-    return sorted(list(df[colname].unique()))
+def get_makers():
+    return sorted(list(df['maker'].unique()))
 
 
 def get_models(maker):
@@ -53,3 +53,7 @@ def get_mpg(model=None):
 
 def get_engineSize(model=None):
     return get_model_data('EngineSize', model)
+
+# def get_mpg_info(model=None):
+#     df['Mpg']
+#     return get_model_data('Mpg', model)

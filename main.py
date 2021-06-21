@@ -40,7 +40,7 @@ def creditcard():
 
 
 @app.route("/")
-@app.route("/usedcar")
+# @app.route("/usedcar")
 def usedcar():
     maker = request.args.get('maker', None)
     model = request.args.get('model', None)
@@ -57,13 +57,27 @@ def usedcar():
         )
         return jsonify(result)
 
-    maker_list = handle_csv.get_makers('maker')
+    maker_list = handle_csv.get_makers()
+    fuelType = handle_csv.get_fuelTypes()
+    transmission = handle_csv.get_transmission()
+
+    mpg = handle_csv.get_mpg()
+    mpg = dict(min=min(mpg), max=max(mpg))
+
+    engineSize = handle_csv.get_engineSize()
+    engineSize = dict(min=min(engineSize), max=max(engineSize))
+
     return render_template("usedcar.html",
-                           result='first', maker_list=maker_list)
+                           result='first',
+                           maker_list=maker_list,
+                           fuelType=fuelType,
+                           transmission=transmission,
+                           mpg=mpg,
+                           engineSize=engineSize)
 
 
-@app.route("/usedcar/predict", methods=["GET", "POST"])
-def predict():
+@app.route("/predict/usedcar", methods=["GET", "POST"])
+def predict_usedcar():
     data = request.get_json()
 
     # maker = data.get('maker', None)
@@ -83,8 +97,8 @@ def predict():
     return "{:.1f} Pound(£)".format(prediction)
 
 
-@app.route("/creditcard/predict", methods=["GET", "POST"])
-def predict():
+@app.route("/predict/creditcard", methods=["GET", "POST"])
+def predict_creditcard():
     data = request.get_json()
 
     card_config = config.CREDIT_CARD

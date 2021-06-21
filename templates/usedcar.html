@@ -159,7 +159,7 @@
       <label for="fuelType-list">FuelType:</label>
       <select id="fuelType-list" name="FuelType">
         <option value="" selected disabled hidden>Choose fuel type</option>
-        {% for m in fuelType_list %}
+        {% for m in fuelType %}
         <option value="{{ m }}">{{ m }}</option>
         {% endfor %}
       </select>
@@ -168,29 +168,72 @@
       <label for="transmission-list">Transmission:</label>
       <select id="transmission-list" name="Transmission">
         <option value="" selected disabled hidden>Choose transmission</option>
-        {% for m in transmission_list %}
+        {% for m in transmission %}
         <option value="{{ m }}">{{ m }}</option>
         {% endfor %}
       </select>
       <br />
 
-      <label for="mpg-list">Mile/Galon:</label>
-      <select id="mpg-list" name="Mpg">
-        <option value="" selected disabled hidden>Choose mpg</option>
-        {% for m in mpg_list %}
-        <option value="{{ m }}">{{ m }}</option>
-        {% endfor %}
-      </select>
+      <label for="mpgSlider">Mile/Galon:</label>
+      <table>
+        <tr>
+          <td>
+            <input
+              type="range"
+              min="{{ mpg.min }}"
+              max="{{ mpg.max }}"
+              id="mpgSlider"
+              name="Mile/Galon"
+              step="0.1"
+              oninput="updateMpgInput(this.value);"
+              class="mdl-slider mdl-js-slider"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="mpgText"
+              min="{{ mpg.min }}"
+              max="{{ mpg.max }}"
+              step="0.1"
+              oninput="updateMpgInput(this.value);"
+              class="mdl-textfield__input"
+              required
+            />
+          </td>
+        </tr>
+      </table>
       <br />
 
-      <label for="engine-list">EngineSize:</label>
-      <select id="engine-list" name="EngineSize">
-        <option value="" selected disabled hidden>Choose engine size</option>
-        {% for m in engine_list %}
-        <option value="{{ m }}">{{ m }}</option>
-        {% endfor %}
-      </select>
-      <br />
+      <label for="enginesizeSlider">EngineSize:</label>
+      <table>
+        <tr>
+          <td>
+            <input
+              type="range"
+              min="{{ engineSize.min }}"
+              max="{{ engineSize.max }}"
+              id="enginesizeSlider"
+              name="engineSize"
+              step="0.1"
+              oninput="updateEngineSizeInput(this.value);"
+              class="mdl-slider mdl-js-slider"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="enginesizeText"
+              min="{{ engineSize.min }}"
+              max="{{ engineSize.max }}"
+              step="0.1"
+              oninput="updateEngineSizeInput(this.value);"
+              class="mdl-textfield__input"
+              required
+            />
+          </td>
+        </tr>
+      </table>
       <br />
 
       <!-- Submit -->
