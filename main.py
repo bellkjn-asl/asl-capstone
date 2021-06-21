@@ -86,12 +86,29 @@ def usedcar():
 def predict_usedcar():
     data = request.get_json()
 
+    # "manufacturer": "ford",
+    # "model": "ford Focus",
+    # "year": 2017,
+    # "transmission": "Manual",
+    # "fuelType": "Diesel",
+    # "mileage": 197,
+    # "tax": 145,
+    # "mpg": 74.3,
+    # "engineSize": 1.5
+
     # maker = data.get('maker', None)
     # model = data.get('model', None)
     # fuelType = data.get('fueltype', None)
     # transmission = data.get('transmission', None)
     # mpg = data.get('mpg', None)
     # engineSize = data.get('enginesize', None)
+    data['year'] = data.pop('carYear')
+    data['manufacturer'] = data.pop('maker')
+    data['engineSize'] = data.pop('engine')
+    data["mileage"] = float(data["mileage"])
+    data["tax"] = float(data["tax"])
+    data["mpg"] = float(data["mpg"])
+    data["engineSize"] = float(data["engineSize"])
 
     usedcar_config = config.USED_CAR
 

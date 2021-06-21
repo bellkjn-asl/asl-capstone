@@ -11,9 +11,9 @@ CREDIT_CARD = creditcard_config()
 
 
 class usedcar_config():
-    model_name = "babyweight2"
-    version_name = "ml_on_gcp"
-    predict_key = 'output'
+    model_name = "used_car"
+    version_name = "baseline"
+    predict_key = 'price'
 
 
 USED_CAR = usedcar_config()

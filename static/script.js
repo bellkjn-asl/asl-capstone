@@ -38,8 +38,10 @@ function updateDaysEmployedInput(val){
   document.getElementById("daysEmployedText").value = val;
 }
 
-
-
+function updateMileageInput(val){
+  document.getElementById("mileageSlider").value = val;
+  document.getElementById("mileageText").value = val;
+}
 
 function clearSelectData(select) {
   var length = select.options.length;

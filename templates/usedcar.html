@@ -205,6 +205,37 @@
       </table>
       <br />
 
+      <label for="mileageSlider">Mileage:</label>
+      <table>
+        <tr>
+          <td>
+            <input
+              type="range"
+              min="{{ mileage.min }}"
+              max="{{ mileage.max }}"
+              id="mileageSlider"
+              name="Mileage"
+              step="0.1"
+              oninput="updateMileageInput(this.value);"
+              class="mdl-slider mdl-js-slider"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="mileageText"
+              min="{{ mileage.min }}"
+              max="{{ mileage.max }}"
+              step="0.1"
+              oninput="updateMileageInput(this.value);"
+              class="mdl-textfield__input"
+              required
+            />
+          </td>
+        </tr>
+      </table>
+      <br />
+
       <label for="enginesizeSlider">EngineSize:</label>
       <table>
         <tr>
