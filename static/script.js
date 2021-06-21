@@ -128,6 +128,7 @@ function submitUsedcarClick() {
   console.log('submitUsedcarClick');
 
   var data = {
+    mileage: document.getElementById("mileageText").value,
     carYear: document.getElementById("carYearText").value,
     maker: getSelectedText("maker-list"),
     model: getSelectedText("model-list"),
