@@ -3,7 +3,6 @@ import os
 
 from flask import Flask, request, jsonify
 from flask import render_template
-from flask import *
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
