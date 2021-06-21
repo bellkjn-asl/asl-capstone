@@ -36,11 +36,18 @@ def get_prediction(features,
 
 @app.route("/creditcard")
 def creditcard():
+
     return render_template("creditcard.html")
 
 
+@app.route("/sample")
+def sample():
+
+    return render_template("sample.html")
+
+
 @app.route("/")
-# @app.route("/usedcar")
+@app.route("/usedcar")
 def usedcar():
     maker = request.args.get('maker', None)
     model = request.args.get('model', None)

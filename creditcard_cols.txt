@@ -10,11 +10,11 @@ occyp_type	STRING	NULLABLE
 car	BOOLEAN	NULLABLE	
 reality	BOOLEAN	NULLABLE	
 
-FLAG_MOBIL	INTEGER	NULLABLE	
-work_phone	INTEGER	NULLABLE	
+FLAG_MOBIL	INTEGER	NULLABLE	0 / 1
+work_phone	INTEGER	NULLABLE	0 / 1
 phone	INTEGER	NULLABLE	
 email	INTEGER	NULLABLE	
-occyp_type_num	INTEGER	NULLABLE	
+occyp_type_num	INTEGER	NULLABLE	????
 
 ==================================================
 slidebar
@@ -22,7 +22,6 @@ slidebar
 income_total	FLOAT	NULLABLE	
 family_size	FLOAT	NULLABLE	
 begin_month	FLOAT	NULLABLE	
-credit	FLOAT	NULLABLE	
 
 
 child_num	INTEGER	NULLABLE	

@@ -13,6 +13,34 @@ function updateEngineSizeInput(val) {
   document.getElementById("enginesizeText").value = val;
 }
 
+function updateFamilySizeInput(val){
+  document.getElementById("familySizeSlider").value = val;
+  document.getElementById("familySizeText").value = val;
+}
+
+function updateBeginMonthInput(val){
+  document.getElementById("beginMonthSlider").value = val;
+  document.getElementById("beginMonthText").value = val;
+}
+
+function updateChildNumInput(val){
+  document.getElementById("childNumSlider").value = val;
+  document.getElementById("childNumText").value = val;
+}
+
+function updateDaysBirthInput(val){
+  document.getElementById("daysBirthSlider").value = val;
+  document.getElementById("daysBirthText").value = val;
+}
+
+function updateDaysEmployedInput(val){
+  document.getElementById("daysEmployedSlider").value = val;
+  document.getElementById("daysEmployedText").value = val;
+}
+
+
+
+
 function clearSelectData(select) {
   var length = select.options.length;
   for (i = length - 1; i >= 0; i--) {
@@ -78,16 +106,24 @@ function changeModel() {
   // xhr.send(null);
 }
 
-function submitClick() {
+function submitClick(path, data) {
   console.log('submitClick');
 
   var xhr = new XMLHttpRequest();
-  xhr.open("POST", "/usedcar/predict");
+  xhr.open("POST", "/predict/" + path);
   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
   xhr.onload = function () {
     const response = xhr.responseText;
     document.getElementById("resultText").innerHTML = response;
   };
+
+  xhr.send(JSON.stringify(data));
+
+}
+
+
+function submitUsedcarClick() {
+  console.log('submitUsedcarClick');
 
   var data = {
     carYear: document.getElementById("carYearText").value,
@@ -99,6 +135,34 @@ function submitClick() {
     engine: document.getElementById("enginesizeSlider").value
   }
 
-  xhr.send(JSON.stringify(data));
+  submitClick('usedcar', data);
+}
+
+function submitCreditClick(){
+  console.log('submitCreditClick');
+
+  var data = {
+    gender: getSelectedText("gender-list"),
+    incomeType: getSelectedText("incomeType-list"),
+    eduType: getSelectedText("eduType-list"),
+    familyType: getSelectedText("familyType-list"),
+    houseType: getSelectedText("houseType-list"),
+    occypType: getSelectedText("occypType-list"),
+    car: getSelectedText("car-list"),
+    reality: getSelectedText("reality-list"),
+    mobile: getSelectedText("mobile-list"),
+    workPhone: getSelectedText("workPhone-list"),
+    phone: getSelectedText("phone-list"),
+    email: getSelectedText("email-list"),
+
+    incomeTotal: document.getElementById("incomeTotalText").value,
+    familySize: document.getElementById("familySizeText").value,
+    beginMonth: document.getElementById("beginMonthText").value,
+    childNum: document.getElementById("childNumText").value,
+    daysBirth: document.getElementById("daysBirthText").value,
+    daysEmployed: document.getElementById("daysEmployedText").value,
+  }
+
+  submitClick('creditcard', data);
 
 }
