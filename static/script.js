@@ -43,6 +43,11 @@ function updateMileageInput(val){
   document.getElementById("mileageText").value = val;
 }
 
+function updateTaxInput(val){
+  document.getElementById("taxSlider").value = val;
+  document.getElementById("taxText").value = val;
+}
+
 function clearSelectData(select) {
   var length = select.options.length;
   for (i = length - 1; i >= 0; i--) {
@@ -128,6 +133,7 @@ function submitUsedcarClick() {
   console.log('submitUsedcarClick');
 
   var data = {
+    tax: document.getElementById("taxText").value,
     mileage: document.getElementById("mileageText").value,
     carYear: document.getElementById("carYearText").value,
     maker: getSelectedText("maker-list"),

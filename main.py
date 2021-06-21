@@ -67,7 +67,8 @@ def usedcar():
     fuelType = handle_csv.get_fuelTypes()
     transmission = handle_csv.get_transmission()
     mileage = dict(min=0.0, max=50.0)
-
+    tax = dict(min=0.0, max=1000.0)
+    
     mpg = handle_csv.get_mpg()
     mpg = dict(min=min(mpg), max=max(mpg))
 
@@ -81,7 +82,8 @@ def usedcar():
                            transmission=transmission,
                            mpg=mpg,
                            engineSize=engineSize,
-                           mileage=mileage)
+                           mileage=mileage, 
+                           tax=tax)
 
 
 @app.route("/predict/usedcar", methods=["GET", "POST"])

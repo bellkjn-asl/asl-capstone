@@ -236,6 +236,37 @@
       </table>
       <br />
 
+      <label for="taxSlider">tax:</label>
+      <table>
+        <tr>
+          <td>
+            <input
+              type="range"
+              min="{{ tax.min }}"
+              max="{{ tax.max }}"
+              id="taxSlider"
+              name="tax"
+              step="0.1"
+              oninput="updateTaxInput(this.value);"
+              class="mdl-slider mdl-js-slider"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="taxText"
+              min="{{ tax.min }}"
+              max="{{ tax.max }}"
+              step="0.1"
+              oninput="updateTaxInput(this.value);"
+              class="mdl-textfield__input"
+              required
+            />
+          </td>
+        </tr>
+      </table>
+      <br />
+
       <label for="enginesizeSlider">EngineSize:</label>
       <table>
         <tr>
