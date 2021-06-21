@@ -46,6 +46,8 @@ def get_fuelTypes(model=None):
 def get_transmission(model=None):
     return get_model_data('Transmission', model)
 
+def get_mileage(model=None):
+    return 
 
 def get_mpg(model=None):
     return get_model_data('Mpg', model)
