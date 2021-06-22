@@ -8,7 +8,7 @@ import random
 from flask import Flask, request, jsonify
 from flask import render_template
 from numpy import number
-from pandas.core.algorithms import isin
+
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 

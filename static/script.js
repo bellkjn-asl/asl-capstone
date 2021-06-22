@@ -130,6 +130,7 @@ function submitClick(path, data) {
     document.getElementById("resultText").innerHTML = response;
   };
 
+  document.getElementById("jsondata").innerHTML = JSON.stringify(data, null, 2);
   xhr.send(JSON.stringify(data));
 
 }

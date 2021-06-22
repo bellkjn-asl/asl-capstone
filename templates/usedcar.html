@@ -93,6 +93,13 @@
         height: auto;
       }
     }
+
+    textarea {
+      border: 1px solid #999999;
+      width: 100%;
+      margin: 5px 0;
+      padding: 3px;
+    }
   </style>
 </head>
 
@@ -325,6 +332,16 @@
     </nav>
 
     <article>
+      <label for="jsondata">Input data for prediction:</label>
+      <textarea
+        id="jsondata"
+        name="jsondata"
+        cols="2"
+        rows="30"
+        readonly
+      ></textarea>
+      <br />
+      <br />
       Prediction result: <span id="resultText">{{ result }}</span>
     </article>
   </section>
