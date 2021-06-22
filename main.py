@@ -155,6 +155,15 @@ def is_data_valid(data, sample):
 def predict_creditcard():
     data = request.get_json()
     data.pop('mobile')
+    if data['DAYS_EMPLOYED'] == 365243:
+        data['DAYS_EMPLOYED'] = 0
+
+    if data["DAYS_BIRTH"] > 0:
+        data["DAYS_BIRTH"] = data["DAYS_BIRTH"] * -1
+    if data["DAYS_EMPLOYED"] > 0:
+        data["DAYS_EMPLOYED"] = data["DAYS_EMPLOYED"] * -1
+    if data["begin_month"] > 0:
+        data["begin_month"] = data["begin_month"] * -1
 
     sample_data = {
         "gender": "M",
