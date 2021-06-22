@@ -137,9 +137,11 @@ def is_data_valid(data, sample):
             raise TypeError(f'{k} not in data')
         if type(data[k]) != type(v):
             if isinstance(data[k], str):
-                if isinstance(v, float) or isinstance(v, int):
-                    if is_number(data[k]):
+                if is_number(data[k]):
+                    if isinstance(v, float):
                         data[k] = float(data[k])
+                    elif isinstance(v, int):
+                        data[k] = int(data[k])
                     else:
                         raise TypeError(
                             f'The type of {k} in data must be {type(v)}')
@@ -152,6 +154,7 @@ def is_data_valid(data, sample):
 @app.route("/predict/creditcard", methods=["GET", "POST"])
 def predict_creditcard():
     data = request.get_json()
+    data.pop('mobile')
 
     sample_data = {
         "gender": "M",
