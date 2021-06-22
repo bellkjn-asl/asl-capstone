@@ -1,3 +1,5 @@
+import config
+import handle_csv
 from datetime import datetime
 import os
 import re
@@ -12,9 +14,6 @@ from oauth2client.client import GoogleCredentials
 
 credentials = GoogleCredentials.get_application_default()
 api = discovery.build("ml", "v1", credentials=credentials)
-
-import handle_csv
-import config
 
 
 app = Flask(__name__)
@@ -93,7 +92,6 @@ def usedcar():
     engineSize = dict(min=_min, max=_max, avg=_mid)
 
     return render_template("usedcar.html",
-                           result='first',
                            maker_list=maker_dict,
                            model_list=model_list,
                            fuelType=fuelType,
