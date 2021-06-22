@@ -135,23 +135,44 @@ function submitClick(path, data) {
 
 }
 
+function getFloatElement(id){
+  return parseFloat(document.getElementById(id).value)
+}
+
+function getIntElement(id){
+  return parseInt(document.getElementById(id).value)
+}
+
+function getMinusFloatElement(id){
+  return getFloatElement(id) * -1
+}
+
 
 function submitUsedcarClick() {
   console.log('submitUsedcarClick');
 
   var data = {
-    tax: document.getElementById("taxText").value,
-    mileage: document.getElementById("mileageText").value,
-    carYear: document.getElementById("carYearText").value,
-    maker: getSelectedText("maker-list"),
+    year: getFloatElement("carYearText"),
+    manufacturer: getSelectedText("maker-list"),
+    engineSize: getFloatElement("enginesizeSlider"),
+    mileage: getFloatElement("mileageText"),
+    tax: getFloatElement("taxText"),
+    mpg: getFloatElement("mpgSlider"),
     model: getSelectedText("model-list"),
     fuelType: getSelectedText("fuelType-list"),
     transmission: getSelectedText("transmission-list"),
-    mpg: document.getElementById("mpgSlider").value,
-    engine: document.getElementById("enginesizeSlider").value
   }
 
   submitClick('usedcar', data);
+}
+
+function getDaysEmployed() {
+  var ret = getMinusFloatElement('daysEmployedText')
+  if( ret == -365243){
+    return 0
+  } 
+  
+  return ret
 }
 
 function submitCreditClick(){
@@ -159,25 +180,23 @@ function submitCreditClick(){
 
   var data = {
     gender: document.getElementById("gender-list").value,
-    work_phone: document.getElementById("workPhone-list").value,
-    phone: document.getElementById("phone-list").value,
-    email: document.getElementById("email-list").value,
-
+    car: getSelectedText("car-list"),
+    reality: getSelectedText("reality-list"),
+    child_num: getIntElement("childNumText"),
+    income_total: getFloatElement("incomeTotalText"),
     income_type: getSelectedText("incomeType-list"),
     edu_type: getSelectedText("eduType-list"),
     family_type: getSelectedText("familyType-list"),
     house_type: getSelectedText("houseType-list"),
+    DAYS_BIRTH: getMinusFloatElement("daysBirthText"),
+    DAYS_EMPLOYED: getDaysEmployed(),
+    work_phone: document.getElementById("workPhone-list").value,
+    phone: document.getElementById("phone-list").value,
+    email: document.getElementById("email-list").value,
     occyp_type: getSelectedText("occypType-list"),
-    car: getSelectedText("car-list"),
-    reality: getSelectedText("reality-list"),
+    family_size: getFloatElement("familySizeText"),
+    begin_month: getMinusFloatElement("beginMonthText"),
     mobile: getSelectedText("mobile-list"),
-
-    income_total: document.getElementById("incomeTotalText").value,
-    family_size: document.getElementById("familySizeText").value,
-    begin_month: document.getElementById("beginMonthText").value,
-    child_num: document.getElementById("childNumText").value,
-    DAYS_BIRTH: document.getElementById("daysBirthText").value,
-    DAYS_EMPLOYED: document.getElementById("daysEmployedText").value,
   }
 
   submitClick('creditcard', data);

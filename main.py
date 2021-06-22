@@ -9,11 +9,11 @@ from flask import Flask, request, jsonify
 from flask import render_template
 from numpy import number
 
-from googleapiclient import discovery
-from oauth2client.client import GoogleCredentials
+# from googleapiclient import discovery
+# from oauth2client.client import GoogleCredentials
 
-credentials = GoogleCredentials.get_application_default()
-api = discovery.build("ml", "v1", credentials=credentials)
+# credentials = GoogleCredentials.get_application_default()
+# api = discovery.build("ml", "v1", credentials=credentials)
 
 
 app = Flask(__name__)
@@ -122,13 +122,6 @@ def predict_usedcar():
     # transmission = data.get('transmission', None)
     # mpg = data.get('mpg', None)
     # engineSize = data.get('enginesize', None)
-    data['year'] = float(data.pop('carYear'))
-    data['manufacturer'] = data.pop('maker')
-    data['engineSize'] = data.pop('engine')
-    data["mileage"] = float(data["mileage"])
-    data["tax"] = float(data["tax"])
-    data["mpg"] = float(data["mpg"])
-    data["engineSize"] = float(data["engineSize"])
 
     usedcar_config = config.USED_CAR
 
@@ -148,20 +141,20 @@ def is_data_valid(data, sample):
     for k, v in sample.items():
         if k not in data:
             raise TypeError(f'{k} not in data')
-        if type(data[k]) != type(v):
-            if isinstance(data[k], str):
-                if is_number(data[k]):
-                    if isinstance(v, float):
-                        data[k] = float(data[k])
-                    elif isinstance(v, int):
-                        data[k] = int(data[k])
-                    else:
-                        raise TypeError(
-                            f'The type of {k} in data must be {type(v)}')
+        # if type(data[k]) != type(v):
+        #     if isinstance(data[k], str):
+        #         if is_number(data[k]):
+        #             if isinstance(v, float):
+        #                 data[k] = float(data[k])
+        #             elif isinstance(v, int):
+        #                 data[k] = int(data[k])
+        #             else:
+        #                 raise TypeError(
+        #                     f'The type of {k} in data must be {type(v)}')
 
-            else:
-                raise TypeError(
-                    f'The type of {k} in data must be {type(v)}')
+        #     else:
+        #         raise TypeError(
+        #             f'The type of {k} in data must be {type(v)}')
 
 
 @app.route("/predict/creditcard", methods=["GET", "POST"])
@@ -191,14 +184,14 @@ def predict_creditcard():
 
     is_data_valid(data, sample_data)
 
-    if data['DAYS_EMPLOYED'] == 365243:
-        data['DAYS_EMPLOYED'] = 0
-    if data["DAYS_BIRTH"] > 0:
-        data["DAYS_BIRTH"] = data["DAYS_BIRTH"] * -1
-    if data["DAYS_EMPLOYED"] > 0:
-        data["DAYS_EMPLOYED"] = data["DAYS_EMPLOYED"] * -1
-    if data["begin_month"] > 0:
-        data["begin_month"] = data["begin_month"] * -1
+    # if data['DAYS_EMPLOYED'] == 365243:
+    #     data['DAYS_EMPLOYED'] = 0
+    # if data["DAYS_BIRTH"] > 0:
+    #     data["DAYS_BIRTH"] = data["DAYS_BIRTH"] * -1
+    # if data["DAYS_EMPLOYED"] > 0:
+    #     data["DAYS_EMPLOYED"] = data["DAYS_EMPLOYED"] * -1
+    # if data["begin_month"] > 0:
+    #     data["begin_month"] = data["begin_month"] * -1
 
     card_config = config.CREDIT_CARD
 
