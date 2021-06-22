@@ -1,6 +1,7 @@
 from datetime import datetime
 import os
 import re
+import random
 
 from flask import Flask, request, jsonify
 from flask import render_template
@@ -9,11 +10,11 @@ from pandas.core.algorithms import isin
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
-import handle_csv
-import config
-
 credentials = GoogleCredentials.get_application_default()
 api = discovery.build("ml", "v1", credentials=credentials)
+
+import handle_csv
+import config
 
 
 app = Flask(__name__)
@@ -67,20 +68,34 @@ def usedcar():
         return jsonify(result)
 
     maker_list = handle_csv.get_makers()
+    rand_idx = random.randint(0, len(maker_list)-1)
+    selected_list = [''] * len(maker_list)
+    selected_list[rand_idx] = 'selected'
+    maker_dict = dict(zip(maker_list, selected_list))
+
+    model_list = handle_csv.get_models(maker_list[rand_idx])
+
     fuelType = handle_csv.get_fuelTypes()
     transmission = handle_csv.get_transmission()
-    mileage = dict(min=0.0, max=50.0)
-    tax = dict(min=0.0, max=1000.0)
+    mileage = dict(min=0.0, max=50.0, avg=25.0)
+    tax = dict(min=0.0, max=1000.0, avg=500.0)
 
     mpg = handle_csv.get_mpg()
-    mpg = dict(min=min(mpg), max=max(mpg))
+    _min = min(mpg)
+    _max = max(mpg)
+    _mid = round((_min+_max) / 2, 1)
+    mpg = dict(min=_min, max=_max, avg=_mid)
 
     engineSize = handle_csv.get_engineSize()
-    engineSize = dict(min=min(engineSize), max=max(engineSize))
+    _min = min(engineSize)
+    _max = max(engineSize)
+    _mid = round((_min+_max) / 2, 1)
+    engineSize = dict(min=_min, max=_max, avg=_mid)
 
     return render_template("usedcar.html",
                            result='first',
-                           maker_list=maker_list,
+                           maker_list=maker_dict,
+                           model_list=model_list,
                            fuelType=fuelType,
                            transmission=transmission,
                            mpg=mpg,

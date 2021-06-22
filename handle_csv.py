@@ -30,7 +30,7 @@ def get_model_data(colname, model=None):
     if _df[colname].dtype == 'object':
         result = [m.strip() for m in result]
     elif _df[colname].dtype == 'float':
-        result = ['{:.1f}'.format(m) for m in result]
+        result = [m for m in result]
 
     return result
 
@@ -46,8 +46,10 @@ def get_fuelTypes(model=None):
 def get_transmission(model=None):
     return get_model_data('Transmission', model)
 
+
 def get_mileage(model=None):
-    return 
+    return
+
 
 def get_mpg(model=None):
     return get_model_data('Mpg', model)

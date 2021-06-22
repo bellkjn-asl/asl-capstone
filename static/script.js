@@ -48,6 +48,12 @@ function updateTaxInput(val){
   document.getElementById("taxText").value = val;
 }
 
+function updateIncomeTotalTextInput(val){
+  document.getElementById("incomeTotalSlider").value = val;
+  document.getElementById("incomeTotalText").value = val;
+}
+
+
 function clearSelectData(select) {
   var length = select.options.length;
   for (i = length - 1; i >= 0; i--) {
@@ -60,13 +66,13 @@ function setSelectData(selectId, data, defaultText) {
 
   clearSelectData(select);
 
-  var opt = document.createElement("option");
-  opt.value = 0;
-  opt.innerHTML = defaultText;
-  opt.disabled = true;
-  opt.hidden = true;
-  opt.selected = true;
-  select.appendChild(opt);
+  // var opt = document.createElement("option");
+  // opt.value = 0;
+  // opt.innerHTML = defaultText;
+  // opt.disabled = true;
+  // opt.hidden = true;
+  // opt.selected = true;
+  // select.appendChild(opt);
 
   for (i = 0; i < data.length; i++) {
     var opt = document.createElement("option");
