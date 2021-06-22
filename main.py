@@ -153,8 +153,6 @@ def is_data_valid(data, sample):
 def predict_creditcard():
     data = request.get_json()
 
-    data['gender'] = 'M' if data['gender'] == 'male' else 'W'
-
     sample_data = {
         "gender": "M",
         "car": "Y",
