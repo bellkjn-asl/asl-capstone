@@ -6,14 +6,14 @@ from flask import Flask, request, jsonify
 from flask import render_template
 from numpy import number
 from pandas.core.algorithms import isin
-# from googleapiclient import discovery
-# from oauth2client.client import GoogleCredentials
+from googleapiclient import discovery
+from oauth2client.client import GoogleCredentials
 
 import handle_csv
 import config
 
-# credentials = GoogleCredentials.get_application_default()
-# api = discovery.build("ml", "v1", credentials=credentials)
+credentials = GoogleCredentials.get_application_default()
+api = discovery.build("ml", "v1", credentials=credentials)
 
 
 app = Flask(__name__)
