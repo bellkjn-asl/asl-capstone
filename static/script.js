@@ -151,25 +151,26 @@ function submitCreditClick(){
   console.log('submitCreditClick');
 
   var data = {
-    gender: getSelectedText("gender-list"),
-    incomeType: getSelectedText("incomeType-list"),
-    eduType: getSelectedText("eduType-list"),
-    familyType: getSelectedText("familyType-list"),
-    houseType: getSelectedText("houseType-list"),
-    occypType: getSelectedText("occypType-list"),
+    gender: document.getElementById("gender-list").value,
+    work_phone: document.getElementById("workPhone-list").value,
+    phone: document.getElementById("phone-list").value,
+    email: document.getElementById("email-list").value,
+
+    income_type: getSelectedText("incomeType-list"),
+    edu_type: getSelectedText("eduType-list"),
+    family_type: getSelectedText("familyType-list"),
+    house_type: getSelectedText("houseType-list"),
+    occyp_type: getSelectedText("occypType-list"),
     car: getSelectedText("car-list"),
     reality: getSelectedText("reality-list"),
     mobile: getSelectedText("mobile-list"),
-    workPhone: getSelectedText("workPhone-list"),
-    phone: getSelectedText("phone-list"),
-    email: getSelectedText("email-list"),
 
-    incomeTotal: document.getElementById("incomeTotalText").value,
-    familySize: document.getElementById("familySizeText").value,
-    beginMonth: document.getElementById("beginMonthText").value,
-    childNum: document.getElementById("childNumText").value,
-    daysBirth: document.getElementById("daysBirthText").value,
-    daysEmployed: document.getElementById("daysEmployedText").value,
+    income_total: document.getElementById("incomeTotalText").value,
+    family_size: document.getElementById("familySizeText").value,
+    begin_month: document.getElementById("beginMonthText").value,
+    child_num: document.getElementById("childNumText").value,
+    DAYS_BIRTH: document.getElementById("daysBirthText").value,
+    DAYS_EMPLOYED: document.getElementById("daysEmployedText").value,
   }
 
   submitClick('creditcard', data);

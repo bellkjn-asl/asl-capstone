@@ -1,8 +1,11 @@
 from datetime import datetime
 import os
+import re
 
 from flask import Flask, request, jsonify
 from flask import render_template
+from numpy import number
+from pandas.core.algorithms import isin
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
 
@@ -124,9 +127,55 @@ def predict_usedcar():
     return "{:.1f} Pound(£)".format(prediction)
 
 
+def is_number(s):
+    return re.match(r'\d+(\.\d*)?', s)
+
+
+def is_data_valid(data, sample):
+    for k, v in sample.items():
+        if k not in data:
+            raise TypeError(f'{k} not in data')
+        if type(data[k]) != type(v):
+            if isinstance(data[k], str):
+                if isinstance(v, float) or isinstance(v, int):
+                    if is_number(data[k]):
+                        data[k] = float(data[k])
+                    else:
+                        raise TypeError(
+                            f'The type of {k} in data must be {type(v)}')
+
+            else:
+                raise TypeError(
+                    f'The type of {k} in data must be {type(v)}')
+
+
 @app.route("/predict/creditcard", methods=["GET", "POST"])
 def predict_creditcard():
     data = request.get_json()
+
+    data['gender'] = 'M' if data['gender'] == 'male' else 'W'
+
+    sample_data = {
+        "gender": "M",
+        "car": "Y",
+        "reality": "N",
+        "child_num": 0,
+        "income_total": 112500.0,
+        "income_type": "Pensioner",
+        "edu_type": "Secondary / secondary special",
+        "family_type": "Civil marriage",
+        "house_type": "House / apartment",
+        "DAYS_BIRTH": -21990,
+        "DAYS_EMPLOYED": 365243,
+        "work_phone": 0,
+        "phone": 1,
+        "email": 0,
+        "occyp_type": "0",
+        "family_size": 2.0,
+        "begin_month": -60.0
+    }
+
+    is_data_valid(data, sample_data)
 
     card_config = config.CREDIT_CARD
 
