@@ -67,7 +67,7 @@ def get_prediction(features,
     parent = f"projects/{project}/models/{model_name}/versions/{version_name}"
     prediction = api.projects().predict(body=input_data, name=parent).execute()
 
-    logging.info(prediction)
+    print(prediction)
 
     return prediction["predictions"][0][predict_key][0]
 
