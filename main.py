@@ -75,12 +75,12 @@ def get_prediction(features,
 @app.route("/creditcard")
 def creditcard():
     # making model prediction ready
-    card_config = config.CREDIT_CARD
-    prediction = get_prediction(SAMPLE_CREDITCARD,
-                                card_config.model_name,
-                                card_config.version_name,
-                                card_config.predict_key)
-    logging.info(f'prediction: {prediction}')
+    # card_config = config.CREDIT_CARD
+    # prediction = get_prediction(SAMPLE_CREDITCARD,
+    #                             card_config.model_name,
+    #                             card_config.version_name,
+    #                             card_config.predict_key)
+    # logging.info(f'prediction: {prediction}')
 
     return render_template("creditcard.html")
 
@@ -110,10 +110,10 @@ def usedcar():
         return jsonify(result)
 
     # making model prediction ready
-    usedcar_config = config.USED_CAR
-    prediction = get_prediction(SAMPLE_USEDCAR, usedcar_config.model_name,
-                                usedcar_config.version_name, usedcar_config.predict_key)
-    logging.info(f'prediction: {prediction}')
+    # usedcar_config = config.USED_CAR
+    # prediction = get_prediction(SAMPLE_USEDCAR, usedcar_config.model_name,
+    #                             usedcar_config.version_name, usedcar_config.predict_key)
+    # logging.info(f'prediction: {prediction}')
 
     maker_list = handle_csv.get_makers()
     rand_idx = random.randint(0, len(maker_list)-1)
