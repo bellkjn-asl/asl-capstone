@@ -1,5 +1,8 @@
 #!/bin/bash
 
+git reset --hard
+git pull
+
 gcloud app create --region us-central
 gcloud app deploy
 
