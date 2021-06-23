@@ -4,7 +4,6 @@ from datetime import datetime
 import os
 import re
 import random
-import numpy as np
 
 from flask import Flask, request, jsonify
 from flask import render_template
@@ -222,10 +221,9 @@ def predict_creditcard():
                                 card_config.version_name,
                                 card_config.predict_key)
 
-    x = np.array(prediction)
-    idx = x.max()
+    idx = prediction.index(max(prediction))
 
-    return f"The prediction result : {prediction}" f"<br/><br/>Credit: {idx}"
+    return f"{prediction}" f"<br/><br/>Credit: {idx}"
 
 
 if __name__ == '__main__':
