@@ -9,8 +9,10 @@ from flask import Flask, request, jsonify
 from flask import render_template
 from numpy import number
 
+import cloud_logging
 from googleapiclient import discovery
 from oauth2client.client import GoogleCredentials
+import logging
 
 credentials = GoogleCredentials.get_application_default()
 api = discovery.build("ml", "v1", credentials=credentials)
@@ -31,7 +33,7 @@ def get_prediction(features,
     parent = f"projects/{project}/models/{model_name}/versions/{version_name}"
     prediction = api.projects().predict(body=input_data, name=parent).execute()
 
-    print(prediction)
+    logging.info(prediction)
 
     return prediction["predictions"][0][predict_key][0]
 
