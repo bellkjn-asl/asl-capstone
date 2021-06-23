@@ -221,7 +221,7 @@ def predict_creditcard():
                                 card_config.version_name,
                                 card_config.predict_key)
 
-    return "{:.1f} Credit".format(prediction)
+    return f"{prediction} Credit"
 
 
 if __name__ == '__main__':
