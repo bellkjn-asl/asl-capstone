@@ -12,7 +12,7 @@ CREDIT_CARD = creditcard_config()
 
 class usedcar_config():
     model_name = "used_car"
-    version_name = "baseline"
+    version_name = "jbm_test"
     predict_key = 'price'
 
 
