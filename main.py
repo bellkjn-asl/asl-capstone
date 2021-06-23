@@ -201,9 +201,9 @@ def predict_creditcard():
     data = request.get_json()
     data.pop('mobile')
 
-    sample_data = SAMPLE_CREDITCARD
+    # sample_data = SAMPLE_CREDITCARD
 
-    is_data_valid(data, sample_data)
+    # is_data_valid(data, sample_data)
 
     # if data['DAYS_EMPLOYED'] == 365243:
     #     data['DAYS_EMPLOYED'] = 0

@@ -213,7 +213,7 @@ function submitCreditClick(){
   data['ability'] = data['income_total'] / (data['DAYS_BIRTH'] + data['DAYS_EMPLOYED'])
   data['income_mean'] = data['income_total'] / data['family_size']
 
-  data['ID_categorical'] = data['child_num'].astype(str) + '_' + data['work_phone'].astype(str) + '_' + data['phone'].astype(str) + '_' +data['email'].astype(str) + '_' + data['family_size'].astype(str) + '_' +data['gender'].astype(str) + '_' + data['car'].astype(str) + '_' +data['reality'].astype(str) + '_' + data['income_type'].astype(str) + '_' +data['edu_type'].astype(str) + '_' + data['family_type'].astype(str) + '_' +data['house_type'].astype(str) + '_' + data['occyp_type'].astype(str)
+  data['ID_categorical'] = String(data['child_num']) + '_' + String(data['work_phone']) + '_' + String(data['phone']) + '_' +String(data['email']) + '_' + String(data['family_size']) + '_' +String(data['gender']) + '_' + String(data['car']) + '_' +String(data['reality']) + '_' + String(data['income_type']) + '_' +String(data['edu_type']) + '_' + String(data['family_type']) + '_' +String(data['house_type']) + '_' + String(data['occyp_type'])
 
   delete data['child_num'];
   delete data['DAYS_BIRTH'];
