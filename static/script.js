@@ -202,6 +202,23 @@ function submitCreditClick(){
     begin_month: getMinusFloatElement("beginMonthText"),
   }
 
+  if(data['DAYS_EMPLOYED'] >= 0){
+    data['occyp_type'] = 'Unemployed'
+    data['DAYS_EMPLOYED'] = 0
+  }
+
+  data['MONTHS_BIRTH'] = Math.floor(data['DAYS_BIRTH'] / 30) 
+  data['MONTHS_EMPLOYED'] = Math.floor(data['DAYS_EMPLOYED'] / 30)
+
+  data['ability'] = data['income_total'] / (data['DAYS_BIRTH'] + data['DAYS_EMPLOYED'])
+  data['income_mean'] = data['income_total'] / data['family_size']
+
+  data['ID_categorical'] = data['child_num'].astype(str) + '_' + data['work_phone'].astype(str) + '_' + data['phone'].astype(str) + '_' +data['email'].astype(str) + '_' + data['family_size'].astype(str) + '_' +data['gender'].astype(str) + '_' + data['car'].astype(str) + '_' +data['reality'].astype(str) + '_' + data['income_type'].astype(str) + '_' +data['edu_type'].astype(str) + '_' + data['family_type'].astype(str) + '_' +data['house_type'].astype(str) + '_' + data['occyp_type'].astype(str)
+
+  delete data['child_num'];
+  delete data['DAYS_BIRTH'];
+  delete data['DAYS_EMPLOYED'];
+
   submitClick('creditcard', data);
 
 }
