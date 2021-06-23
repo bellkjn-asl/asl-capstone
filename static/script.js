@@ -151,14 +151,16 @@ function getMinusFloatElement(id){
 function submitUsedcarClick() {
   console.log('submitUsedcarClick');
 
+  maker = getSelectedText("maker-list");
+
   var data = {
     year: getFloatElement("carYearText"),
-    manufacturer: getSelectedText("maker-list"),
+    manufacturer: maker,
     engineSize: getFloatElement("enginesizeSlider"),
     mileage: getFloatElement("mileageText"),
     tax: getFloatElement("taxText"),
     mpg: getFloatElement("mpgSlider"),
-    model: getSelectedText("model-list"),
+    model: maker+' '+getSelectedText("model-list"),
     fuelType: getSelectedText("fuelType-list"),
     transmission: getSelectedText("transmission-list"),
   }
