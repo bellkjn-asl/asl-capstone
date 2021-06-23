@@ -22,6 +22,39 @@ if sys.platform != 'win32':
 app = Flask(__name__)
 
 
+SAMPLE_USEDCAR = {
+    "manufacturer": "ford",
+    "model": "ford Focus",
+    "year": 2017,
+    "transmission": "Manual",
+    "fuelType": "Diesel",
+    "mileage": 197,
+    "tax": 145,
+    "mpg": 74.3,
+    "engineSize": 1.5
+}
+
+SAMPLE_CREDITCARD = {
+    "gender": "M",
+    "car": "Y",
+    "reality": "N",
+    "child_num": 0,
+    "income_total": 112500.0,
+    "income_type": "Pensioner",
+    "edu_type": "Secondary / secondary special",
+    "family_type": "Civil marriage",
+    "house_type": "House / apartment",
+    "DAYS_BIRTH": -21990,
+    "DAYS_EMPLOYED": 365243,
+    "work_phone": 0,
+    "phone": 1,
+    "email": 0,
+    "occyp_type": "0",
+    "family_size": 2.0,
+    "begin_month": -60.0
+}
+
+
 def get_prediction(features,
                    model_name,
                    version_name,
@@ -41,6 +74,13 @@ def get_prediction(features,
 
 @app.route("/creditcard")
 def creditcard():
+    # making model prediction ready
+    card_config = config.CREDIT_CARD
+    prediction = get_prediction(SAMPLE_CREDITCARD,
+                                card_config.model_name,
+                                card_config.version_name,
+                                card_config.predict_key)
+    logging.info(f'prediction: {prediction}')
 
     return render_template("creditcard.html")
 
@@ -68,6 +108,12 @@ def usedcar():
             engineSize=handle_csv.get_engineSize(model)
         )
         return jsonify(result)
+
+    # making model prediction ready
+    usedcar_config = config.USED_CAR
+    prediction = get_prediction(SAMPLE_USEDCAR, usedcar_config.model_name,
+                                usedcar_config.version_name, usedcar_config.predict_key)
+    logging.info(f'prediction: {prediction}')
 
     maker_list = handle_csv.get_makers()
     rand_idx = random.randint(0, len(maker_list)-1)
@@ -108,16 +154,6 @@ def usedcar():
 @app.route("/predict/usedcar", methods=["GET", "POST"])
 def predict_usedcar():
     data = request.get_json()
-
-    # "manufacturer": "ford",
-    # "model": "ford Focus",
-    # "year": 2017,
-    # "transmission": "Manual",
-    # "fuelType": "Diesel",
-    # "mileage": 197,
-    # "tax": 145,
-    # "mpg": 74.3,
-    # "engineSize": 1.5
 
     # maker = data.get('maker', None)
     # model = data.get('model', None)
@@ -165,25 +201,7 @@ def predict_creditcard():
     data = request.get_json()
     data.pop('mobile')
 
-    sample_data = {
-        "gender": "M",
-        "car": "Y",
-        "reality": "N",
-        "child_num": 0,
-        "income_total": 112500.0,
-        "income_type": "Pensioner",
-        "edu_type": "Secondary / secondary special",
-        "family_type": "Civil marriage",
-        "house_type": "House / apartment",
-        "DAYS_BIRTH": -21990,
-        "DAYS_EMPLOYED": 365243,
-        "work_phone": 0,
-        "phone": 1,
-        "email": 0,
-        "occyp_type": "0",
-        "family_size": 2.0,
-        "begin_month": -60.0
-    }
+    sample_data = SAMPLE_CREDITCARD
 
     is_data_valid(data, sample_data)
 
