@@ -199,7 +199,7 @@ def is_data_valid(data, sample):
 @app.route("/predict/creditcard", methods=["GET", "POST"])
 def predict_creditcard():
     data = request.get_json()
-    data.pop('mobile')
+    # data.pop('mobile')
 
     # sample_data = SAMPLE_CREDITCARD
 
