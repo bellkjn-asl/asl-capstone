@@ -181,9 +181,11 @@ function submitCreditClick(){
   console.log('submitCreditClick');
 
   var data = {
+    car: document.getElementById("car-list").value,
+    reality: document.getElementById("reality-list").value,
+    mobile: document.getElementById("mobile-list").value,
+
     gender: document.getElementById("gender-list").value,
-    car: getSelectedText("car-list"),
-    reality: getSelectedText("reality-list"),
     child_num: getIntElement("childNumText"),
     income_total: getFloatElement("incomeTotalText"),
     income_type: getSelectedText("incomeType-list"),
@@ -198,7 +200,6 @@ function submitCreditClick(){
     occyp_type: getSelectedText("occypType-list"),
     family_size: getFloatElement("familySizeText"),
     begin_month: getMinusFloatElement("beginMonthText"),
-    mobile: getSelectedText("mobile-list"),
   }
 
   submitClick('creditcard', data);
