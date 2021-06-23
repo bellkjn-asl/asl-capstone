@@ -4,6 +4,7 @@ from datetime import datetime
 import os
 import re
 import random
+import numpy as np
 
 from flask import Flask, request, jsonify
 from flask import render_template
@@ -69,7 +70,7 @@ def get_prediction(features,
 
     print(prediction)
 
-    return prediction["predictions"][0][predict_key][0]
+    return prediction["predictions"][0][predict_key]
 
 
 @app.route("/creditcard")
@@ -169,7 +170,7 @@ def predict_usedcar():
                                 usedcar_config.version_name,
                                 usedcar_config.predict_key)
 
-    return "{:.1f} Pound(£)".format(prediction)
+    return "{:.1f} Pound(£)".format(prediction[0])
 
 
 def is_number(s):
@@ -221,7 +222,10 @@ def predict_creditcard():
                                 card_config.version_name,
                                 card_config.predict_key)
 
-    return f"{prediction} Credit"
+    x = np.array(prediction)
+    idx = x.max()
+
+    return f"The prediction result : {prediction}" f"<br/><br/>Credit: {idx}"
 
 
 if __name__ == '__main__':
