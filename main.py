@@ -7,15 +7,16 @@ import random
 
 from flask import Flask, request, jsonify
 from flask import render_template
-from numpy import number
-
-import cloud_logging
-from googleapiclient import discovery
-from oauth2client.client import GoogleCredentials
 import logging
+import sys
 
-credentials = GoogleCredentials.get_application_default()
-api = discovery.build("ml", "v1", credentials=credentials)
+if sys.platform != 'win32':
+    import cloud_logging
+    from googleapiclient import discovery
+    from oauth2client.client import GoogleCredentials
+
+    credentials = GoogleCredentials.get_application_default()
+    api = discovery.build("ml", "v1", credentials=credentials)
 
 
 app = Flask(__name__)
