@@ -169,7 +169,7 @@ def predict_usedcar():
                                 usedcar_config.version_name,
                                 usedcar_config.predict_key)
 
-    return "{:.1f} Pound(£)".format(prediction[0])
+    return "Prediction result: {:.1f} Pound(£)".format(prediction[0])
 
 
 def is_number(s):
@@ -223,7 +223,7 @@ def predict_creditcard():
 
     idx = prediction.index(max(prediction))
 
-    return f"{prediction}" f"<br/><br/>Credit: {idx}"
+    return f"Prediction result: {prediction}" f"<br/><br/>Credit: {idx}"
 
 
 if __name__ == '__main__':

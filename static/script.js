@@ -131,6 +131,8 @@ function submitClick(path, data) {
   };
 
   document.getElementById("jsondata").innerHTML = JSON.stringify(data, null, 2);
+  document.getElementById("resultText").innerHTML = "<div class=\"loader\"></div>";
+
   xhr.send(JSON.stringify(data));
 
 }
