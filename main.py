@@ -69,6 +69,9 @@ def get_prediction(features,
 
     print(prediction)
 
+    if 'predictions' not in prediction:
+        raise KeyError(f'Failed to predict: {prediction}')
+
     return prediction["predictions"][0][predict_key]
 
 
@@ -174,12 +177,15 @@ def predict_usedcar():
 
     usedcar_config = config.USED_CAR
 
-    prediction = get_prediction(data,
-                                usedcar_config.model_name,
-                                usedcar_config.version_name,
-                                usedcar_config.predict_key)
+    try:
+        prediction = get_prediction(data,
+                                    usedcar_config.model_name,
+                                    usedcar_config.version_name,
+                                    usedcar_config.predict_key)
 
-    return "Prediction result: {:.1f} Pound(£)".format(prediction[0])
+        return "Prediction result: {:.1f} Pound(£)".format(prediction[0])
+    except Exception as e:
+        return 'Error: ' + str(e)
 
 
 def is_number(s):
@@ -226,20 +232,23 @@ def predict_creditcard():
 
     card_config = config.CREDIT_CARD
 
-    prediction = get_prediction(data,
-                                card_config.model_name,
-                                card_config.version_name,
-                                card_config.predict_key)
+    try:
+        prediction = get_prediction(data,
+                                    card_config.model_name,
+                                    card_config.version_name,
+                                    card_config.predict_key)
 
-    idx = prediction.index(max(prediction))
+        idx = prediction.index(max(prediction))
 
-    level = {
-        0: 'high',
-        1: 'mid',
-        2: 'low'
-    }
+        level = {
+            0: 'high',
+            1: 'mid',
+            2: 'low'
+        }
 
-    return f"Prediction result: {prediction}" f"<br/><br/>Credit: {idx} = {level[idx]} level"
+        return f"Prediction result: {prediction}" f"<br/><br/>Credit: {idx} = {level[idx]} level"
+    except Exception as e:
+        return 'Error: ' + str(e)
 
 
 if __name__ == '__main__':
