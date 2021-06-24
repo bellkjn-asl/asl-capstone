@@ -146,7 +146,7 @@ function getIntElement(id){
   return parseInt(document.getElementById(id).value)
 }
 
-function getFloatElement(id){
+function getMinusFloatElement(id){
   return getFloatElement(id) * -1
 }
 
