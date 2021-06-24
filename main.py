@@ -223,7 +223,13 @@ def predict_creditcard():
 
     idx = prediction.index(max(prediction))
 
-    return f"Prediction result: {prediction}" f"<br/><br/>Credit: {idx}"
+    level = {
+        0: 'high',
+        1: 'mid',
+        2: 'low'
+    }
+
+    return f"Prediction result: {prediction}" f"<br/><br/>Credit: {idx} = {level[idx]} level"
 
 
 if __name__ == '__main__':
