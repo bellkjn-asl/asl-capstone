@@ -82,7 +82,12 @@ def creditcard():
     #                             card_config.predict_key)
     # logging.info(f'prediction: {prediction}')
 
-    return render_template("creditcard.html")
+    credit_conf = config.CREDIT_CARD
+    model = dict(name=credit_conf.model_name,
+                 version=credit_conf.version_name)
+
+    return render_template("creditcard.html",
+                           model=model)
 
 
 @app.route("/sample")
@@ -140,6 +145,10 @@ def usedcar():
     _mid = round((_min+_max) / 2, 1)
     engineSize = dict(min=_min, max=_max, avg=_mid)
 
+    used_car_conf = config.USED_CAR
+    model = dict(name=used_car_conf.model_name,
+                 version=used_car_conf.version_name)
+
     return render_template("usedcar.html",
                            maker_list=maker_dict,
                            model_list=model_list,
@@ -148,7 +157,8 @@ def usedcar():
                            mpg=mpg,
                            engineSize=engineSize,
                            mileage=mileage,
-                           tax=tax)
+                           tax=tax,
+                           model=model)
 
 
 @app.route("/predict/usedcar", methods=["GET", "POST"])
