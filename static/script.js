@@ -122,6 +122,8 @@ function changeModel() {
 function submitClick(path, data) {
   console.log('submitClick');
 
+  document.getElementById("resultText").innerHTML = "<div class=\"loader\"></div>";
+
   var xhr = new XMLHttpRequest();
   xhr.open("POST", "/predict/" + path);
   xhr.setRequestHeader('content-type', 'application/json;charset=UTF-8');
@@ -131,7 +133,6 @@ function submitClick(path, data) {
   };
 
   document.getElementById("jsondata").innerHTML = JSON.stringify(data, null, 2);
-  document.getElementById("resultText").innerHTML = "<div class=\"loader\"></div>";
 
   xhr.send(JSON.stringify(data));
 
