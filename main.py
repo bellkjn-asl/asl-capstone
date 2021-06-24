@@ -238,7 +238,7 @@ def predict_creditcard():
                                     card_config.version_name,
                                     card_config.predict_key)
 
-        prediction = list(reversed(prediction))
+        # prediction = list(reversed(prediction))
 
         idx = prediction.index(max(prediction))
 
