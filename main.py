@@ -125,12 +125,12 @@ def usedcar():
 
     fuelType = handle_csv.get_fuelTypes()
     transmission = handle_csv.get_transmission()
-    mileage = dict(min=0.0, max=50.0, avg=25.0)
+    mileage = dict(min=0.0, max=1000000.0, avg=10000.0)
     tax = dict(min=0.0, max=1000.0, avg=500.0)
 
-    mpg = handle_csv.get_mpg()
-    _min = min(mpg)
-    _max = max(mpg)
+    # mpg = handle_csv.get_mpg()
+    _min = 1.0  # min(mpg)
+    _max = 200.0  # max(mpg)
     _mid = round((_min+_max) / 2, 1)
     mpg = dict(min=_min, max=_max, avg=_mid)
 
