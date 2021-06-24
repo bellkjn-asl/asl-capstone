@@ -213,10 +213,11 @@ function submitCreditClick(){
   data['MONTHS_BIRTH'] = Math.floor(data['DAYS_BIRTH'] / 30) 
   data['MONTHS_EMPLOYED'] = Math.floor(data['DAYS_EMPLOYED'] / 30)
 
-  // data['ability'] = data['income_total'] / (data['DAYS_BIRTH'] + data['DAYS_EMPLOYED'])
-  // data['income_mean'] = data['income_total'] / data['family_size']
+  data['ability'] = data['income_total'] / (data['DAYS_BIRTH'] + data['DAYS_EMPLOYED'])
+  data['income_mean'] = data['income_total'] / data['family_size']
 
-  // data['ID_categorical'] = String(data['child_num']) + '_' + String(data['work_phone']) + '_' + String(data['phone']) + '_' +String(data['email']) + '_' + String(data['family_size']) + '_' +String(data['gender']) + '_' + String(data['car']) + '_' +String(data['reality']) + '_' + String(data['income_type']) + '_' +String(data['edu_type']) + '_' + String(data['family_type']) + '_' +String(data['house_type']) + '_' + String(data['occyp_type'])
+  data['ID_categorical'] = String(data['DAYS_EMPLOYED']) +'_'+ String(data['DAYS_BIRTH']) +'_'+ String(data['income_total']) + '_'+String(data['child_num']) + '_' + String(data['work_phone']) + '_' + String(data['phone']) + '_' +String(data['email']) + '_' + String(data['family_size']) + '_' +String(data['gender']) + '_' + String(data['car']) + '_' +String(data['reality']) + '_' + String(data['income_type']) + '_' +String(data['edu_type']) + '_' + String(data['family_type']) + '_' +String(data['house_type']) + '_' + String(data['occyp_type'])
+
 
   delete data['child_num'];
   delete data['DAYS_BIRTH'];
