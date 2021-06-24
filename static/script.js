@@ -146,7 +146,7 @@ function getIntElement(id){
   return parseInt(document.getElementById(id).value)
 }
 
-function getMinusFloatElement(id){
+function getFloatElement(id){
   return getFloatElement(id) * -1
 }
 
@@ -172,7 +172,7 @@ function submitUsedcarClick() {
 }
 
 function getDaysEmployed() {
-  var ret = getMinusFloatElement('daysEmployedText')
+  var ret = getFloatElement('daysEmployedText')
   if( ret == -365243){
     return 0
   } 
@@ -198,10 +198,10 @@ function submitCreditClick(){
     email: getIntElement("email-list"),
     occyp_type: getSelectedText("occypType-list"),
     family_size: getFloatElement("familySizeText"),
-    begin_month: getMinusFloatElement("beginMonthText"),
+    begin_month: getFloatElement("beginMonthText"),
 
     child_num: getIntElement("childNumText"),
-    DAYS_BIRTH: getMinusFloatElement("daysBirthText"),
+    DAYS_BIRTH: getFloatElement("daysBirthText"),
     DAYS_EMPLOYED: getDaysEmployed(),
   }
 
@@ -213,25 +213,25 @@ function submitCreditClick(){
   data['MONTHS_BIRTH'] = Math.floor(data['DAYS_BIRTH'] / 30) 
   data['MONTHS_EMPLOYED'] = Math.floor(data['DAYS_EMPLOYED'] / 30)
 
-  // data['ability'] = data['income_total'] / (data['DAYS_BIRTH'] + data['DAYS_EMPLOYED'])
-  // data['income_mean'] = data['income_total'] / data['family_size']
+  data['ability'] = data['income_total'] / (data['DAYS_BIRTH'] + data['DAYS_EMPLOYED'])
+  data['income_mean'] = data['income_total'] / data['family_size']
 
-  // data['ID_categorical'] = String(data['DAYS_EMPLOYED']) + '_' 
-  //   + String(data['DAYS_BIRTH']) + '_' 
-  //   + String(data['income_total']) + '_' 
-  //   + String(data['child_num']) + '_' 
-  //   + String(data['work_phone']) + '_' 
-  //   + String(data['phone']) + '_' 
-  //   + String(data['email']) + '_' 
-  //   + String(data['family_size']) + '_' 
-  //   + String(data['gender']) + '_' 
-  //   + String(data['car']) + '_' 
-  //   + String(data['reality']) + '_' 
-  //   + String(data['income_type']) + '_' 
-  //   + String(data['edu_type']) + '_' 
-  //   + String(data['family_type']) + '_' 
-  //   + String(data['house_type']) + '_' 
-  //   + String(data['occyp_type']);
+  data['ID_categorical'] = String(data['DAYS_EMPLOYED']) + '_' 
+    + String(data['DAYS_BIRTH']) + '_' 
+    + String(data['income_total']) + '_' 
+    + String(data['child_num']) + '_' 
+    + String(data['work_phone']) + '_' 
+    + String(data['phone']) + '_' 
+    + String(data['email']) + '_' 
+    + String(data['family_size']) + '_' 
+    + String(data['gender']) + '_' 
+    + String(data['car']) + '_' 
+    + String(data['reality']) + '_' 
+    + String(data['income_type']) + '_' 
+    + String(data['edu_type']) + '_' 
+    + String(data['family_type']) + '_' 
+    + String(data['house_type']) + '_' 
+    + String(data['occyp_type']);
 
 
   delete data['child_num'];
